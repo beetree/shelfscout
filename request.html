@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Submit Request | ShelfScout</title>
+    <style>
+      :root {
+        --bg: #f4efe7;
+        --panel: #fffaf3;
+        --ink: #1f1a17;
+        --muted: #6e6258;
+        --line: #d6c8b8;
+        --accent: #9a3f19;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        color: var(--ink);
+        background: linear-gradient(180deg, #f8f1e8 0%, #f2ebe2 100%);
+      }
+
+      .shell {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+      }
+
+      .panel {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--panel);
+        box-shadow: 0 22px 60px rgba(48, 29, 16, 0.08);
+      }
+
+      h1, h2 {
+        margin: 0;
+      }
+
+      .lead {
+        margin-top: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      @media (min-width: 760px) {
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        font: inherit;
+        background: #fffdf8;
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      button,
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button {
+        background: var(--accent);
+        color: #fff8f3;
+      }
+
+      .button {
+        border-color: var(--line);
+        color: var(--ink);
+      }
+
+      .output {
+        margin-top: 22px;
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px dashed var(--line);
+        background: #fffdf8;
+        white-space: pre-wrap;
+        line-height: 1.55;
+      }
+
+      .note {
+        margin-top: 18px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel">
+        <h1>Submit your ShelfScout request</h1>
+        <p class="lead">
+          Pay first, then use this page to generate the exact request email for
+          Jennifer from ShelfScout. This is the fastest manual-first intake path for the
+          pilot.
+        </p>
+
+        <form id="request-form" class="grid">
+          <label>
+            Full name
+            <input id="full-name" required>
+          </label>
+          <label>
+            Payment confirmation email
+            <input id="payment-email" type="email" required>
+          </label>
+          <label>
+            Mobile phone
+            <input id="mobile-phone" required>
+          </label>
+          <label>
+            Target bottle
+            <select id="target-bottle" required>
+                            <option value="Blanton's">Blanton's</option>
+              <option value="Eagle Rare">Eagle Rare</option>
+              <option value="Weller Special Reserve">Weller Special Reserve</option>
+              <option value="E.H. Taylor Small Batch">E.H. Taylor Small Batch</option>
+            </select>
+          </label>
+          <label>
+            City or ZIP
+            <input id="target-area" value="Dallas-Fort Worth, TX" required>
+          </label>
+          <label>
+            Max drive radius
+            <input id="drive-radius" placeholder="20 minutes or 15 miles" required>
+          </label>
+          <label>
+            Max acceptable price
+            <input id="max-price" placeholder="$90">
+          </label>
+          <label>
+            Need a hold?
+            <select id="must-hold">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </label>
+          <label>
+            Deadline
+            <input id="deadline" placeholder="Need results by 4:30 PM CT">
+          </label>
+          <label>
+            Preferred delivery method
+            <select id="delivery-method">
+              <option value="Email">Email</option>
+            </select>
+          </label>
+          <label style="grid-column: 1 / -1;">
+            Notes
+            <textarea id="notes" placeholder="Preferred stores, purchase-limit concerns, or other instructions"></textarea>
+          </label>
+        </form>
+
+        <div class="actions">
+          <button id="build-email" type="button">Build Request Email</button>
+          <a class="button" href="mailto:info@leetgroup.net?subject=ShelfScout%20pilot%20payment%20request">Request Payment Link</a>
+          <a class="button" href="index.html">Back to Home</a>
+        </div>
+
+        <div id="output" class="output" hidden></div>
+
+        <p class="note">
+          This page does not send data to a backend. It generates a structured email
+          to <a href="mailto:info@leetgroup.net">info@leetgroup.net</a> so the pilot
+          can run with a static site and manual fulfillment.
+        </p>
+      </section>
+    </main>
+    <script>
+      const buildButton = document.getElementById("build-email");
+      const output = document.getElementById("output");
+
+      function value(id) {
+        return document.getElementById(id).value.trim();
+      }
+
+      function buildBody() {
+        return [
+          "ShelfScout request",
+          "",
+          "Full name: " + value("full-name"),
+          "Payment email: " + value("payment-email"),
+          "Mobile phone: " + value("mobile-phone"),
+          "Target bottle: " + value("target-bottle"),
+          "City or ZIP: " + value("target-area"),
+          "Max drive radius: " + value("drive-radius"),
+          "Max acceptable price: " + value("max-price"),
+          "Need a hold: " + value("must-hold"),
+          "Deadline: " + value("deadline"),
+          "Preferred delivery: " + value("delivery-method"),
+          "Notes: " + value("notes")
+        ].join("\n");
+      }
+
+      buildButton.addEventListener("click", () => {
+        const subject = "ShelfScout pilot request - " + value("target-bottle");
+        const body = buildBody();
+        const mailto = "mailto:info@leetgroup.net?subject=" +
+          encodeURIComponent(subject) +
+          "&body=" +
+          encodeURIComponent(body);
+
+        output.hidden = false;
+        output.textContent =
+          "Copy for your records:\n\n" +
+          body +
+          "\n\nA draft email is opening now. If it does not open, send the text above to info@leetgroup.net.";
+
+        window.location.href = mailto;
+      });
+    </script>
+  </body>
+</html>
