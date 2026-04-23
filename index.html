@@ -4,108 +4,267 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ShelfScout</title>
-    <meta name="description" content="Shelf, stock, and in-store discovery workflows.">
     <style>
       :root {
-        --bg: #f5f1e8;
-        --surface: #fffdf8;
-        --text: #1b1a18;
-        --muted: #635d55;
-        --accent: #0f766e;
-        --accent-2: #9a3412;
-        --border: #d9d1c4;
+        --bg: #f4efe7;
+        --panel: #fffaf3;
+        --ink: #1f1a17;
+        --muted: #6e6258;
+        --line: #d6c8b8;
+        --accent: #9a3f19;
+        --accent-dark: #6f2b10;
+        --good: #285943;
       }
-      * { box-sizing: border-box; }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
         font-family: Georgia, "Times New Roman", serif;
-        color: var(--text);
+        color: var(--ink);
         background:
-          radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28%),
-          radial-gradient(circle at bottom right, rgba(154, 52, 18, 0.12), transparent 30%),
-          var(--bg);
+          radial-gradient(circle at top left, rgba(154, 63, 25, 0.12), transparent 32rem),
+          linear-gradient(180deg, #f8f1e8 0%, #f2ebe2 100%);
       }
-      main {
-        min-height: 100vh;
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+      }
+
+      .hero {
         display: grid;
-        place-items: center;
-        padding: 32px;
-      }
-      .card {
-        width: min(760px, 100%);
-        background: var(--surface);
-        border: 1px solid var(--border);
+        gap: 24px;
+        padding: 28px;
+        border: 1px solid var(--line);
         border-radius: 24px;
-        padding: 40px;
-        box-shadow: 0 24px 80px rgba(27, 26, 24, 0.10);
+        background: rgba(255, 250, 243, 0.92);
+        box-shadow: 0 24px 60px rgba(48, 29, 16, 0.08);
       }
+
       .eyebrow {
-        margin: 0 0 12px;
-        color: var(--accent-2);
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
+        font-size: 0.8rem;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
+        color: var(--accent);
       }
-      h1 {
+
+      h1, h2, h3 {
         margin: 0;
-        font-size: clamp(40px, 6vw, 72px);
-        line-height: 0.96;
-        letter-spacing: -0.04em;
+        line-height: 1.05;
       }
-      p {
-        margin: 20px 0 0;
+
+      h1 {
+        font-size: clamp(2.4rem, 6vw, 5.2rem);
+        max-width: 14ch;
+      }
+
+      .lead {
         max-width: 58ch;
-        color: var(--muted);
-        font-size: 19px;
+        font-size: 1.1rem;
         line-height: 1.6;
+        color: var(--muted);
       }
-      .status {
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .button {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        margin-top: 24px;
-        padding: 10px 14px;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
         border-radius: 999px;
-        background: rgba(15, 118, 110, 0.08);
+        text-decoration: none;
+        font-weight: 700;
+        border: 1px solid transparent;
+      }
+
+      .button.primary {
+        background: var(--accent);
+        color: #fff8f3;
+      }
+
+      .button.primary:hover {
+        background: var(--accent-dark);
+      }
+
+      .button.secondary {
+        border-color: var(--line);
+        background: transparent;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      @media (min-width: 860px) {
+        .grid {
+          grid-template-columns: 1.2fr 0.8fr;
+        }
+      }
+
+      .panel {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--panel);
+      }
+
+      .list {
+        margin: 16px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .metric {
+        padding: 14px;
+        border-radius: 16px;
+        background: #f6ede1;
+        border: 1px solid var(--line);
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.5rem;
+      }
+
+      .steps {
+        display: grid;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .step {
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: #fffdf8;
+      }
+
+      .step span {
+        display: inline-block;
+        min-width: 26px;
+        margin-right: 10px;
         color: var(--accent);
-        font-size: 14px;
         font-weight: 700;
       }
-      .dot {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: currentColor;
+
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: rgba(40, 89, 67, 0.08);
+        color: var(--good);
+        border: 1px solid rgba(40, 89, 67, 0.18);
       }
-      .footer {
+
+      footer {
         margin-top: 32px;
-        padding-top: 24px;
-        border-top: 1px solid var(--border);
-        font-size: 15px;
         color: var(--muted);
-      }
-      a { color: inherit; }
-      @media (max-width: 640px) {
-        .card {
-          padding: 28px;
-          border-radius: 18px;
-        }
-        p { font-size: 17px; }
+        font-size: 0.95rem;
       }
     </style>
   </head>
   <body>
-    <main>
-      <section class="card">
-        <p class="eyebrow">LEET Group</p>
-        <h1>ShelfScout</h1>
-        <p>Shelf, stock, and in-store discovery workflows.</p>
-        <div class="status"><span class="dot"></span> Initial site setup in progress</div>
-        <div class="footer">
-          Questions: <a href="mailto:info@leetgroup.net">info@leetgroup.net</a>
+    <main class="shell">
+      <section class="hero">
+        <div class="eyebrow">Bottle hunts without the calling sprint</div>
+        <h1>Fast liquor-store stock checks for serious bourbon buyers.</h1>
+        <p class="lead">
+          Jennifer from ShelfScout runs same-day store checks in Dallas-Fort Worth, TX. You send
+          a target bottle and radius. ShelfScout calls up to 10
+          independent liquor stores and returns stock status, price, purchase limit,
+          and hold status within 30 minutes.
+        </p>
+        <div class="cta-row">
+          <a class="button primary" href="mailto:info@leetgroup.net?subject=ShelfScout%20pilot%20payment%20request">Start Paid Pilot</a>
+          <a class="button secondary" href="request.html">Submit Request</a>
+        </div>
+        <div class="note">
+          After payment, submit the request form and Jennifer will return results by email within 30 minutes.
         </div>
       </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>What you get</h2>
+          <ul class="list">
+            <li>Up to 10 completed store calls for one bottle in one metro</li>
+            <li>Per-store result: in stock or not, current price, purchase limit, hold status</li>
+            <li>Operational turnaround target of 30 minutes</li>
+            <li>Email delivery in a structured format you can act on immediately</li>
+          </ul>
+
+          <div class="metric-grid">
+            <div class="metric">
+              <strong>$20</strong>
+              pilot price
+            </div>
+            <div class="metric">
+              <strong>10</strong>
+              completed calls included
+            </div>
+            <div class="metric">
+              <strong>30 min</strong>
+              target response window
+            </div>
+            <div class="metric">
+              <strong>DFW</strong>
+              launch metro
+            </div>
+          </div>
+        </article>
+
+        <aside class="panel">
+          <h2>Launch scope</h2>
+          <p class="lead">
+            Pilot lane only: allocated bourbon checks at independent liquor stores in Dallas-Fort Worth.
+          </p>
+          <h3 style="margin-top: 18px;">Pilot bottles</h3>
+          <ul class="list">
+                        <li>Blanton's</li>
+            <li>Eagle Rare</li>
+            <li>Weller Special Reserve</li>
+            <li>E.H. Taylor Small Batch</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="panel" style="margin-top: 18px;">
+        <h2>How it works</h2>
+        <div class="steps">
+          <div class="step"><span>1.</span>Pay for the pilot.</div>
+          <div class="step"><span>2.</span>Submit one bottle, metro, radius, and max price.</div>
+          <div class="step"><span>3.</span>ShelfScout calls the stores and logs the results.</div>
+          <div class="step"><span>4.</span>You receive a concise action sheet by email.</div>
+        </div>
+      </section>
+
+      <footer>
+        Questions before paying? Email <a href="mailto:info@leetgroup.net">info@leetgroup.net</a>.
+      </footer>
     </main>
   </body>
 </html>
