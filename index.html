@@ -1,270 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ShelfScout</title>
-    <style>
-      :root {
-        --bg: #f4efe7;
-        --panel: #fffaf3;
-        --ink: #1f1a17;
-        --muted: #6e6258;
-        --line: #d6c8b8;
-        --accent: #9a3f19;
-        --accent-dark: #6f2b10;
-        --good: #285943;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShelfScout — Indie Channel Coverage for Spirits Brands</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.55; color: #1a1a1a; }
+    h1 { font-size: 2em; margin-bottom: 0.2em; }
+    h2 { margin-top: 2em; }
+    .lead { font-size: 1.15em; color: #555; margin-bottom: 2em; }
+    .cta { background: #0a3d62; color: white; padding: 14px 26px; text-decoration: none; display: inline-block; border-radius: 4px; font-weight: 600; margin: 1em 0; }
+    .cta:hover { background: #082f4a; }
+    .meta { color: #888; font-size: 0.9em; margin-top: 3em; }
+    a { color: #0a3d62; }
+  </style>
+</head>
+<body>
+  <h1>ShelfScout</h1>
+  <p class="lead">Indie-channel shelf-coverage and pricing intelligence for craft and mid-market spirits brands.</p>
 
-      * {
-        box-sizing: border-box;
-      }
+  <h2>What we do</h2>
+  <p>We pull granular shelf-coverage and pricing data from the independent retail layer that distributor reports usually miss — the indie liquor stores below the Nielsen, Circana, and SPINS scan layer where, by design, the 3-tier system blocks producer access to point-of-sale feeds.</p>
 
-      body {
-        margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
-        color: var(--ink);
-        background:
-          radial-gradient(circle at top left, rgba(154, 63, 25, 0.12), transparent 32rem),
-          linear-gradient(180deg, #f8f1e8 0%, #f2ebe2 100%);
-      }
+  <h2>What you get</h2>
+  <ul>
+    <li>Per-store stock status for your bottle across a curated indie panel</li>
+    <li>Shelf prices observed at retail (where disclosed)</li>
+    <li>Out-of-stock concentration to direct distributor reorder pushes</li>
+    <li>Hold willingness as a proxy for shelf engagement</li>
+    <li>Refresh cadence: one-time pilot, monthly, or quarterly</li>
+  </ul>
 
-      a {
-        color: inherit;
-      }
+  <h2>Pilot offer</h2>
+  <p><strong>$500 for the first DFW report</strong>, delivered in 7 days, refunded if it isn't useful to your team.</p>
 
-      .shell {
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 32px 20px 64px;
-      }
+  <p><a class="cta" href="/sample-report.html">See a sample report</a></p>
 
-      .hero {
-        display: grid;
-        gap: 24px;
-        padding: 28px;
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        background: rgba(255, 250, 243, 0.92);
-        box-shadow: 0 24px 60px rgba(48, 29, 16, 0.08);
-      }
+  <h2>Why this works on phone</h2>
+  <p>Independent retailers don't share POS data upstream the way major retail does. We close that gap with structured outbound calls into the indie channel, capture stock and price answers from store counters, and deliver a clean per-brand report — anonymized at the store level, named in the report we deliver under confidentiality.</p>
 
-      .eyebrow {
-        font-size: 0.8rem;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--accent);
-      }
-
-      h1, h2, h3 {
-        margin: 0;
-        line-height: 1.05;
-      }
-
-      h1 {
-        font-size: clamp(2.4rem, 6vw, 5.2rem);
-        max-width: 14ch;
-      }
-
-      .lead {
-        max-width: 58ch;
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--muted);
-      }
-
-      .cta-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 48px;
-        padding: 0 18px;
-        border-radius: 999px;
-        text-decoration: none;
-        font-weight: 700;
-        border: 1px solid transparent;
-      }
-
-      .button.primary {
-        background: var(--accent);
-        color: #fff8f3;
-      }
-
-      .button.primary:hover {
-        background: var(--accent-dark);
-      }
-
-      .button.secondary {
-        border-color: var(--line);
-        background: transparent;
-      }
-
-      .grid {
-        display: grid;
-        gap: 18px;
-        margin-top: 24px;
-      }
-
-      @media (min-width: 860px) {
-        .grid {
-          grid-template-columns: 1.2fr 0.8fr;
-        }
-      }
-
-      .panel {
-        padding: 22px;
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        background: var(--panel);
-      }
-
-      .list {
-        margin: 16px 0 0;
-        padding-left: 18px;
-        color: var(--muted);
-        line-height: 1.7;
-      }
-
-      .metric-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 16px;
-      }
-
-      .metric {
-        padding: 14px;
-        border-radius: 16px;
-        background: #f6ede1;
-        border: 1px solid var(--line);
-      }
-
-      .metric strong {
-        display: block;
-        font-size: 1.5rem;
-      }
-
-      .steps {
-        display: grid;
-        gap: 12px;
-        margin-top: 16px;
-      }
-
-      .step {
-        padding: 16px;
-        border-radius: 16px;
-        border: 1px solid var(--line);
-        background: #fffdf8;
-      }
-
-      .step span {
-        display: inline-block;
-        min-width: 26px;
-        margin-right: 10px;
-        color: var(--accent);
-        font-weight: 700;
-      }
-
-      .note {
-        margin-top: 18px;
-        padding: 14px 16px;
-        border-radius: 14px;
-        background: rgba(40, 89, 67, 0.08);
-        color: var(--good);
-        border: 1px solid rgba(40, 89, 67, 0.18);
-      }
-
-      footer {
-        margin-top: 32px;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-    </style>
-  </head>
-  <body>
-    <main class="shell">
-      <section class="hero">
-        <div class="eyebrow">Bottle hunts without the calling sprint</div>
-        <h1>Fast liquor-store stock checks for serious bourbon buyers.</h1>
-        <p class="lead">
-          Jennifer from ShelfScout runs same-day store checks in Dallas-Fort Worth, TX. You send
-          a target bottle and radius. ShelfScout calls up to 10
-          independent liquor stores and returns stock status, price, purchase limit,
-          and hold status within 30 minutes.
-        </p>
-        <div class="cta-row">
-          <a class="button primary" href="https://buy.stripe.com/dRm6oJ1N14509qUbWRcMM04">Start Paid Pilot</a>
-          <a class="button secondary" href="request.html">Submit Request</a>
-        </div>
-        <div class="note">
-          After payment, submit the request form and Jennifer will return results by email within 30 minutes.
-        </div>
-      </section>
-
-      <section class="grid">
-        <article class="panel">
-          <h2>What you get</h2>
-          <ul class="list">
-            <li>Up to 10 completed store calls for one bottle in one metro</li>
-            <li>Per-store result: in stock or not, current price, purchase limit, hold status</li>
-            <li>Operational turnaround target of 30 minutes</li>
-            <li>Email delivery in a structured format you can act on immediately</li>
-          </ul>
-
-          <div class="metric-grid">
-            <div class="metric">
-              <strong>$20</strong>
-              pilot price
-            </div>
-            <div class="metric">
-              <strong>10</strong>
-              completed calls included
-            </div>
-            <div class="metric">
-              <strong>30 min</strong>
-              target response window
-            </div>
-            <div class="metric">
-              <strong>DFW</strong>
-              launch metro
-            </div>
-          </div>
-        </article>
-
-        <aside class="panel">
-          <h2>Launch scope</h2>
-          <p class="lead">
-            Pilot lane only: allocated bourbon checks at independent liquor stores in Dallas-Fort Worth.
-          </p>
-          <h3 style="margin-top: 18px;">Pilot bottles</h3>
-          <ul class="list">
-                        <li>Blanton's</li>
-            <li>Eagle Rare</li>
-            <li>Weller Special Reserve</li>
-            <li>E.H. Taylor Small Batch</li>
-          </ul>
-        </aside>
-      </section>
-
-      <section class="panel" style="margin-top: 18px;">
-        <h2>How it works</h2>
-        <div class="steps">
-          <div class="step"><span>1.</span>Pay for the pilot.</div>
-          <div class="step"><span>2.</span>Submit one bottle, metro, radius, and max price.</div>
-          <div class="step"><span>3.</span>ShelfScout calls the stores and logs the results.</div>
-          <div class="step"><span>4.</span>You receive a concise action sheet by email.</div>
-        </div>
-      </section>
-
-      <footer>
-        Questions before paying? Email <a href="mailto:info@leetgroup.net">info@leetgroup.net</a>.
-      </footer>
-    </main>
-  </body>
+  <p class="meta">For brand directors, regional sales managers, and trade marketing leads. <a href="mailto:info@leetgroup.net">info@leetgroup.net</a></p>
+</body>
 </html>
